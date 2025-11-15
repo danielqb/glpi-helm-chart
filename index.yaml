@@ -1,0 +1,19 @@
+apiVersion: v1
+entries:
+  glpi:
+  - apiVersion: v2
+    appVersion: 11.0.2
+    created: "2025-11-15T17:45:02.149809233Z"
+    description: GLPI - IT Asset Management and Service Desk
+    digest: 2b0b78b28e24e39e1c905c1f4ab3336c9ee458cde8ce23757d508c03f5d800ec
+    keywords:
+    - glpi
+    - itil
+    - asset-management
+    - service-desk
+    name: glpi
+    type: application
+    urls:
+    - https://github.com/eftechcombr/glpi/releases/download/glpi-1.0.0/glpi-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-11-15T17:45:02.149825331Z"
