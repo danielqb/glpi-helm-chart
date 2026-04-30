@@ -17,21 +17,6 @@ entries:
     - https://github.com/eftechcombr/glpi/releases/download/glpi-11.0.7/glpi-11.0.7.tgz
     version: 11.0.7
   - apiVersion: v2
-    appVersion: 11.0.6
-    created: "2026-04-27T15:15:53.064297899Z"
-    description: GLPI Helm Chart - IT Asset Management and Service Desk
-    digest: 4b0d3d25cac41780982da306f18b07e50975caec55e5f7a9f71784694ee68a1c
-    keywords:
-    - glpi
-    - itil
-    - asset-management
-    - service-desk
-    name: glpi
-    type: application
-    urls:
-    - https://github.com/eftechcombr/glpi/releases/download/glpi-11.0.6/glpi-11.0.6.tgz
-    version: 11.0.6
-  - apiVersion: v2
     appVersion: 11.0.5
     created: "2026-01-30T11:50:42.306690902Z"
     description: GLPI - IT Asset Management and Service Desk
@@ -46,19 +31,4 @@ entries:
     urls:
     - https://github.com/eftechcombr/glpi/releases/download/glpi-11.0.5/glpi-11.0.5.tgz
     version: 11.0.5
-  - apiVersion: v2
-    appVersion: 11.0.2
-    created: "2025-11-15T17:45:02.149809233Z"
-    description: GLPI - IT Asset Management and Service Desk
-    digest: 2b0b78b28e24e39e1c905c1f4ab3336c9ee458cde8ce23757d508c03f5d800ec
-    keywords:
-    - glpi
-    - itil
-    - asset-management
-    - service-desk
-    name: glpi
-    type: application
-    urls:
-    - https://github.com/eftechcombr/glpi/releases/download/glpi-1.0.0/glpi-1.0.0.tgz
-    version: 1.0.0
 generated: "2026-04-30T10:58:06.314542391Z"
