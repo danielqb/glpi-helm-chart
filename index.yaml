@@ -39,6 +39,67 @@ entries:
           url: https://github.com/eftechcombr/glpi/issues
     apiVersion: v2
     appVersion: 11.0.7
+    created: "2026-05-26T18:30:59.914764105Z"
+    description: GLPI Helm Chart - IT Asset Management and Service Desk
+    digest: 3b245d5cab8d15a35b5ea3eb6d717a5258f828c9fcc0dfec420cce452d6c1216
+    home: https://github.com/eftechcombr/glpi
+    icon: https://glpi-project.org/wp-content/themes/glpi/assets/img/logo-glpi.svg
+    keywords:
+    - glpi
+    - itil
+    - asset-management
+    - service-desk
+    - itsm
+    maintainers:
+    - email: contato@eftech.com.br
+      name: eftechcombr
+      url: https://github.com/eftechcombr
+    name: glpi
+    sources:
+    - https://github.com/eftechcombr/glpi
+    - https://github.com/glpi-project/glpi
+    type: application
+    urls:
+    - https://github.com/eftechcombr/glpi/releases/download/glpi-11.0.7/glpi-11.0.7.tgz
+    version: 11.0.7
+  - annotations:
+      artifacthub.io/category: it-service-management
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fix CronJob YAML indentation bug preventing deployment"
+        - kind: fixed
+          description: "Fix Ingress backend service name to match nginx service"
+        - kind: changed
+          description: "StatefulSet now uses volumeClaimTemplates for multi-replica support"
+        - kind: changed
+          description: "Use app.kubernetes.io/component labels consistently across all templates"
+        - kind: added
+          description: "ServiceAccount template with imagePullSecrets and scheduling values"
+        - kind: added
+          description: "External database support via externalDatabase config"
+        - kind: changed
+          description: "Added security contexts and resource limits to init containers"
+        - kind: changed
+          description: "Redis now has liveness/readiness probes and security context defaults"
+        - kind: changed
+          description: "MariaDB and Redis now run with non-root security contexts by default"
+        - kind: fixed
+          description: "Fix GLPI_DOC_DIR pointing to /var/www/html instead of var dir"
+        - kind: changed
+          description: "StatefulSet anti-affinity changed to requiredDuringScheduling"
+        - kind: fixed
+          description: "Remove deprecated alpha API annotation and status subresource fields"
+        - kind: fixed
+          description: "Fix terminationGracePeriodSeconds moved to pod template spec"
+        - kind: fixed
+          description: "Fix helm-publish workflow skipping publish on release events"
+      artifacthub.io/language: en, pt-br
+      artifacthub.io/license: GPL-3.0
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/eftechcombr/glpi/issues
+    apiVersion: v2
+    appVersion: 11.0.7
     created: "2026-05-26T18:18:31.334543035Z"
     description: GLPI Helm Chart - IT Asset Management and Service Desk
     digest: a9ac7b5681d62716cb7af84b34a56a665e007c28d62fb431c077328d8122705d
@@ -195,4 +256,4 @@ entries:
     urls:
     - https://github.com/eftechcombr/glpi/releases/download/glpi-11.0.5/glpi-11.0.5.tgz
     version: 11.0.5
-generated: "2026-05-26T18:18:31.334569285Z"
+generated: "2026-05-26T18:30:59.914789498Z"
