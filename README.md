@@ -8,10 +8,10 @@ Manifest files for building and deploying **GLPI** using containers with Docker 
 ## Supported Containers
 
 - [x] PHP-FPM: `php:8.4.19-fpm-alpine3.22`
-- [x] Nginx: `nginxinc/nginx-unprivileged:1.29.1-alpine3.22-slim`
-- [x] GLPI PHP: `eftechcombr/glpi:php-fpm-11.0.6`
-- [x] GLPI Nginx: `eftechcombr/glpi:nginx-11.0.6`
+- [x] Nginx: `nginxinc/nginx-unprivileged:1.27.5-alpine3.21-slim`
+- [x] GLPI PHP: `eftechcombr/glpi:php-fpm-11.0.8`
 
+  - [x] GLPI Nginx: `eftechcombr/glpi:nginx-11.0.8`
 ## Quick Start
 
 ### Using Helm (Kubernetes)
@@ -21,7 +21,7 @@ Manifest files for building and deploying **GLPI** using containers with Docker 
 Add the GLPI Helm chart repository:
 
 ```sh
-helm repo add glpi https://eftechcombr.github.io/glpi/
+helm repo add eftechcombr https://eftechcombr.github.io/glpi/
 helm repo update
 ```
 
@@ -31,25 +31,25 @@ helm repo update
 Install GLPI using Helm:
 
 ```sh
-helm install my-glpi glpi/glpi
+helm install my-glpi eftechcombr/glpi
 ```
 
 Or with custom values:
 
 ```sh
-helm install my-glpi glpi/glpi -f custom-values.yaml
+helm install my-glpi eftechcombr/glpi -f custom-values.yaml
 ```
 
 #### Searching for Available Versions
 
 ```sh
-helm search repo glpi --versions
+helm search repo eftechcombr --versions
 ```
 
 #### Upgrading the Chart
 
 ```sh
-helm upgrade my-glpi glpi/glpi
+helm upgrade my-glpi eftechcombr/glpi
 ```
 
 #### Uninstalling the Chart
@@ -64,7 +64,14 @@ helm uninstall my-glpi
 2. Set up environment variables:
 ```sh
 cp docker/.env.example docker/.env
+# Edit docker/.env with your desired configuration
 ```
+3. Start the containers:
+```sh
+cd docker
+docker compose up -d
+```
+GLPI will be accessible at http://localhost:8080
 
 ## Credentials
 
@@ -75,15 +82,18 @@ cp docker/.env.example docker/.env
 
 ### docker-compose 
 
-    ./docker/_env ---> please rename to /docker/.env
+    ./docker/.env.example ---> copy to ./docker/.env and customize
+
+    See ./docker/.env for available environment variables including:
+    - MARIADB_HOST, MARIADB_PORT, MARIADB_DATABASE, MARIADB_USER, MARIADB_PASSWORD
+    - GLPI_LANG, VERSION, CACHE_DSN
+    - GLPI_VAR_DIR, GLPI_CONFIG_DIR, GLPI_MARKETPLACE_DIR and other directory paths
 
 
 ### kubernetes
 
-    ./kubernetes/glpi-configmap.yaml
-    ./kubernetes/glpi-secrets.yaml
-    ./kubernetes/mariadb-configmap.yaml
-    ./kubernetes/mariadb-secret.yaml 
+    See ./kubernetes/glpi/values.yaml for all configurable Helm chart parameters,
+    including GLPI, MariaDB, Redis, Ingress, and external database settings.
     
 
 
