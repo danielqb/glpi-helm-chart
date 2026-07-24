@@ -72,6 +72,10 @@ spec:
               mountPath: /etc/glpi
             - name: marketplace
               mountPath: /var/www/html/marketplace
+            {{- if .Values.glpi.securityContext.readOnlyRootFilesystem }}
+            - name: tmp
+              mountPath: /tmp
+            {{- end }}
           {{- if .Values.glpi.phpfpm.livenessProbe.enabled }}
           livenessProbe:
             tcpSocket:
@@ -105,6 +109,10 @@ spec:
         - name: marketplace
           persistentVolumeClaim:
             claimName: glpi-marketplace
+        {{- if .Values.glpi.securityContext.readOnlyRootFilesystem }}
+        - name: tmp
+          emptyDir: {}
+        {{- end }}
 
 
 ---
@@ -172,6 +180,10 @@ spec:
           volumeMounts:
             - name: nginx-conf
               mountPath: /etc/nginx/conf.d
+            {{- if .Values.glpi.securityContext.readOnlyRootFilesystem }}
+            - name: tmp
+              mountPath: /tmp
+            {{- end }}
           {{- if .Values.glpi.nginx.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
@@ -202,6 +214,10 @@ spec:
           configMap:
             defaultMode: 420
             name: nginx-conf
+        {{- if .Values.glpi.securityContext.readOnlyRootFilesystem }}
+        - name: tmp
+          emptyDir: {}
+        {{- end }}
 
 
 ---

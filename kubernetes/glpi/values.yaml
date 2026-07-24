@@ -282,7 +282,7 @@ glpi:
     fsGroup: 82
 
   # -- GLPI Container Security Context
-  # Security settings applied at the container level
+  # Security settings applied at the container level (php-fpm, nginx, all init Jobs, cronjob)
   securityContext:
     # Run as non-root user
     runAsNonRoot: true
@@ -292,6 +292,14 @@ glpi:
     capabilities:
       drop:
       - ALL
+    # Mount the container's root filesystem as read-only. Verified against the actual
+    # eftechcombr/glpi:php-fpm and :nginx images (docker run --read-only): php-fpm starts
+    # cleanly with no extra writable paths; nginx needs /tmp writable (proxy_temp etc, used
+    # by nginx-unprivileged's default config). When enabled, this chart mounts an emptyDir
+    # at /tmp on every container that shares this securityContext (php-fpm, nginx, init
+    # Jobs, cronjob) to cover both cases uniformly. GLPI's own data (uploads, sessions,
+    # config, marketplace) already lives on PVCs, unaffected by this setting either way.
+    readOnlyRootFilesystem: false
 
 # -- MariaDB Database Configuration
 mariadb:
@@ -387,6 +395,12 @@ mariadb:
     capabilities:
       drop:
         - ALL
+    # Mount the container's root filesystem as read-only. Verified against the official
+    # mariadb:11.4 image (docker run --read-only): in addition to /var/lib/mysql (already
+    # a PVC), it needs /tmp writable (InnoDB temp files) and /run/mysqld writable (unix
+    # socket) to start and accept connections. When enabled, this chart mounts emptyDirs
+    # at both paths.
+    readOnlyRootFilesystem: false
 
 # -- Redis Cache Configuration
 redis:
@@ -441,6 +455,13 @@ redis:
     capabilities:
       drop:
         - ALL
+    # Mount the container's root filesystem as read-only. Verified against the official
+    # redis:7.0-alpine image (docker run --read-only): needs /data writable to persist its
+    # RDB snapshot. This chart does not provision a PVC for Redis (it's used purely as an
+    # ephemeral object cache for GLPI, data loss on restart is expected either way), so
+    # when enabled an emptyDir is mounted at /data - functionally equivalent to the
+    # container's own writable layer that would otherwise hold it.
+    readOnlyRootFilesystem: false
 
 # -- Ingress Configuration
 # Configure ingress to expose GLPI externally
