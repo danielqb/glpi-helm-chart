@@ -159,21 +159,10 @@ spec:
           securityContext:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          envFrom:
-            - configMapRef:
-                name: glpi-config
-            - secretRef:
-                name: glpi-secret
           ports:
             - containerPort: 8080
               name: http
           volumeMounts:
-            - name: files
-              mountPath: /var/lib/glpi
-            - name: marketplace
-              mountPath: /var/www/html/marketplace
-            - name: etc
-              mountPath: /etc/glpi
             - name: nginx-conf
               mountPath: /etc/nginx/conf.d
           {{- if .Values.glpi.nginx.livenessProbe.enabled }}
@@ -199,15 +188,6 @@ spec:
           resources:
             {{- toYaml .Values.glpi.nginx.resources | nindent 12 }}
       volumes:
-        - name: etc
-          persistentVolumeClaim:
-            claimName: glpi-etc
-        - name: files
-          persistentVolumeClaim:
-            claimName: glpi-files
-        - name: marketplace
-          persistentVolumeClaim:
-            claimName: glpi-marketplace
         - name: nginx-conf
           configMap:
             defaultMode: 420
