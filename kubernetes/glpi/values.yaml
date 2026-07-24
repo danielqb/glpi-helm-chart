@@ -35,6 +35,11 @@ glpi:
     # Number of PHP-FPM replicas
     replicaCount: 1
     
+    # Set container resources according to one common preset (allowed values: none, nano,
+    # micro, small, medium, large, xlarge, 2xlarge). Only applied when `resources` below is
+    # left empty ({}). In production, setting `resources` explicitly is recommended over
+    # relying on a preset.
+    resourcesPreset: "none"
     # Resource limits and requests for PHP-FPM container
     resources:
       limits:
@@ -82,6 +87,10 @@ glpi:
     # Number of Nginx replicas
     replicaCount: 1
     
+    # Set container resources according to one common preset (allowed values: none, nano,
+    # micro, small, medium, large, xlarge, 2xlarge). Only applied when `resources` below is
+    # left empty ({}).
+    resourcesPreset: "none"
     # Resource limits and requests for Nginx container
     resources:
       limits:
@@ -276,6 +285,10 @@ mariadb:
   
   # Primary database configuration
   primary:
+    # Set container resources according to one common preset (allowed values: none, nano,
+    # micro, small, medium, large, xlarge, 2xlarge). Only applied when `resources` below is
+    # left empty ({}).
+    resourcesPreset: "none"
     # Resource limits and requests for MariaDB
     resources:
       limits:
@@ -348,6 +361,10 @@ redis:
   # Number of Redis replicas
   replicaCount: 1
   
+  # Set container resources according to one common preset (allowed values: none, nano,
+  # micro, small, medium, large, xlarge, 2xlarge). Only applied when `resources` below is
+  # left empty ({}).
+  resourcesPreset: "none"
   # Resource limits and requests for Redis
   resources:
     limits:
