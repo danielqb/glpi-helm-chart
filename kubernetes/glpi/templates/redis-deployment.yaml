@@ -71,6 +71,9 @@ spec:
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 3
+          {{- $redisRes := include "glpi.resources" (dict "resources" .Values.redis.resources "preset" .Values.redis.resourcesPreset) }}
+          {{- if $redisRes }}
           resources:
-            {{- toYaml .Values.redis.resources | nindent 12 }}
+            {{- $redisRes | nindent 12 }}
+          {{- end }}
 {{- end }}

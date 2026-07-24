@@ -71,8 +71,11 @@ spec:
             - containerPort: 3306
               name: mariadb
               protocol: TCP
+          {{- $mariadbRes := include "glpi.resources" (dict "resources" .Values.mariadb.primary.resources "preset" .Values.mariadb.primary.resourcesPreset) }}
+          {{- if $mariadbRes }}
           resources:
-            {{- toYaml .Values.mariadb.primary.resources | nindent 12 }}
+            {{- $mariadbRes | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: data
               mountPath: "/var/lib/mysql"
