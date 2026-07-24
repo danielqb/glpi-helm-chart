@@ -69,6 +69,16 @@ spec:
                 name: {{ include "glpi.mariadbSecretName" . }}
             - configMapRef:
                 name: mariadb-glpi-config
+          {{- if .Values.mariadb.securityContext.readOnlyRootFilesystem }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          {{- end }}
+      {{- if .Values.mariadb.securityContext.readOnlyRootFilesystem }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+      {{- end }}
       restartPolicy: OnFailure
   parallelism: 1
   completions: 1

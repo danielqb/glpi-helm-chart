@@ -73,4 +73,14 @@ spec:
             failureThreshold: 3
           resources:
             {{- toYaml .Values.redis.resources | nindent 12 }}
+          {{- if .Values.redis.securityContext.readOnlyRootFilesystem }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          {{- end }}
+      {{- if .Values.redis.securityContext.readOnlyRootFilesystem }}
+      volumes:
+        - name: data
+          emptyDir: {}
+      {{- end }}
 {{- end }}

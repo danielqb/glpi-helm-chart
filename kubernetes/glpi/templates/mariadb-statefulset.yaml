@@ -76,8 +76,21 @@ spec:
           volumeMounts:
             - name: data
               mountPath: "/var/lib/mysql"
+            {{- if .Values.mariadb.securityContext.readOnlyRootFilesystem }}
+            - name: tmp
+              mountPath: /tmp
+            - name: run-mysqld
+              mountPath: /run/mysqld
+            {{- end }}
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
+      {{- if .Values.mariadb.securityContext.readOnlyRootFilesystem }}
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: run-mysqld
+          emptyDir: {}
+      {{- end }}
   updateStrategy:
     type: OnDelete
   volumeClaimTemplates:
