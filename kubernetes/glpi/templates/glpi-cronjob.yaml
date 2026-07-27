@@ -39,6 +39,41 @@ spec:
           affinity:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          initContainers:
+            # En una instalación nueva, este CronJob puede empezar a correr
+            # (schedule cada 2 min) antes de que el Job post-install
+            # glpi-db-install/glpi-db-configure termine de escribir
+            # /etc/glpi/config/config_db.php -- ese Job corre como Helm hook
+            # (post-install, hook-weight 10/20), pero el CronJob es un
+            # recurso normal que se crea en la misma fase de Sync que
+            # nginx/php-fpm, sin esperar a los hooks. Sin esta guarda,
+            # cron.php falla contra una base sin configurar hasta que el
+            # hook termina -- mismo patrón wait-for-mariadb que ya usan
+            # glpi-db-install/glpi-db-configure/mariadb-timezone, aplicado
+            # acá a la precondición real de este Job (el archivo de config,
+            # no la conectividad TCP a la DB).
+            - name: wait-for-config-db
+              image: busybox:1.36.1
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: 65534
+                capabilities:
+                  drop:
+                    - ALL
+              command:
+                - sh
+                - -c
+                - until [ -f /etc/glpi/config/config_db.php ]; do sleep 2; done
+              volumeMounts:
+                - name: etc
+                  mountPath: /etc/glpi
+              resources:
+                limits:
+                  cpu: 100m
+                  memory: 64Mi
+                requests:
+                  cpu: 50m
+                  memory: 32Mi
           containers:
             - image: {{ include "glpi.phpfpm.image" . }}
               imagePullPolicy: {{ .Values.glpi.phpfpm.image.pullPolicy }}
