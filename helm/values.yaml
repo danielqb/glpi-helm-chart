@@ -48,6 +48,12 @@ glpi:
       # Leave empty to omit that metric from the HPA entirely.
       targetCPUUtilizationPercentage: 80
       targetMemoryUtilizationPercentage: ""
+
+    # Set container resources according to one common preset (allowed values: none, nano,
+    # micro, small, medium, large, xlarge, 2xlarge). Only applied when `resources` below is
+    # left empty ({}). In production, setting `resources` explicitly is recommended over
+    # relying on a preset.
+    resourcesPreset: "none"
     
     # Resource limits and requests for PHP-FPM container
     resources:
@@ -118,6 +124,11 @@ glpi:
       maxReplicas: 5
       targetCPUUtilizationPercentage: 80
       targetMemoryUtilizationPercentage: ""
+
+    # Set container resources according to one common preset (allowed values: none, nano,
+    # micro, small, medium, large, xlarge, 2xlarge). Only applied when `resources` below is
+    # left empty ({}).
+    resourcesPreset: "none"
     
     # Resource limits and requests for Nginx container
     resources:
