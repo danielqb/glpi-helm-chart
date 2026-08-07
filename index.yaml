@@ -337,6 +337,58 @@ entries:
           url: https://github.com/eftechcombr/glpi/issues
     apiVersion: v2
     appVersion: 11.0.8
+    created: "2026-08-07T19:48:41.032169089Z"
+    dependencies:
+    - condition: valkey.enabled
+      name: valkey
+      repository: https://repo.helmforge.dev
+      version: 2.0.2
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://repo.helmforge.dev
+      version: 2.0.3
+    description: GLPI Helm Chart - IT Asset Management and Service Desk
+    digest: 72ce5b98ee834576b4a392695d384b9d04e7c4e13daebec1a6b05eae1b3db56e
+    home: https://github.com/eftechcombr/glpi
+    icon: https://www.glpi-project.org/wp-content/uploads/2025/03/glpi-teclib-color-logo.svg
+    keywords:
+    - glpi
+    - itil
+    - asset-management
+    - service-desk
+    - itsm
+    maintainers:
+    - email: contato@eftech.com.br
+      name: eftechcombr
+      url: https://github.com/eftechcombr
+    name: glpi
+    sources:
+    - https://github.com/eftechcombr/glpi
+    - https://github.com/glpi-project/glpi
+    type: application
+    urls:
+    - https://github.com/danielqb/glpi-helm-chart/releases/download/glpi-2.11.3/glpi-2.11.3.tgz
+    version: 2.11.3
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Replace inline MariaDB StatefulSet with helmforge/mariadb subchart v2.0.3"
+        - kind: changed
+          description: "Update MariaDB image from mariadb:11.4 to mariadb:12.3.2"
+        - kind: changed
+          description: "MariaDB values restructured: resources/persistence under standalone.*, security UID 999"
+        - kind: changed
+          description: "Timezone grant moved from helm hook job to subchart initdb.scripts"
+        - kind: changed
+          description: "Service DNS changed to dynamic {release-name}-mariadb pattern"
+      artifacthub.io/language: en, pt-br
+      artifacthub.io/license: GPL-3.0
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/eftechcombr/glpi/issues
+    apiVersion: v2
+    appVersion: 11.0.8
     created: "2026-08-05T03:58:10.656340815Z"
     dependencies:
     - condition: valkey.enabled
@@ -369,4 +421,4 @@ entries:
     urls:
     - https://github.com/danielqb/glpi-helm-chart/releases/download/glpi-2.11.1/glpi-2.11.1.tgz
     version: 2.11.1
-generated: "2026-08-05T03:58:10.656364098Z"
+generated: "2026-08-07T19:48:41.032201109Z"
